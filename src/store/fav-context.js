@@ -1,43 +1,45 @@
-import { createContext, useState } from "react";
+import { createContext, useState } from 'react';
 
-const FavContext = createContext({
-  fav: [],
-  totalFav: 0,
-  addFav: (FavMeetup) => {},
-  removeFav: (meetupId) => {},
-  itemIsFav: (meetupId) => {},
+const FavoritesContext = createContext({
+  favorites: [],
+  totalFavorites: 0,
+  addFavorite: (favoriteMeetup) => {},
+  removeFavorite: (meetupId) => {},
+  itemIsFavorite: (meetupId) => {}
 });
 
-export function FavContextProvider(props) {
-  const [userFavs, setUserFavs] = useState([]);
+export function FavoritesContextProvider(props) {
+  const [userFavorites, setUserFavorites] = useState([]);
 
-  function addFavHandler(FavMeetup) {
-    setUserFavs((prevUserFavs) => {
-      return prevUserFavs.concat(FavMeetup);
+  function addFavoriteHandler(favoriteMeetup) {
+    setUserFavorites((prevUserFavorites) => {
+      return prevUserFavorites.concat(favoriteMeetup);
     });
   }
 
-  function removeFavHandler(meetupId) {
-    setUserFavs((prevUserFavs) => {
-      return prevUserFavs.filter((meetup) => meetup.id !== meetupId);
+  function removeFavoriteHandler(meetupId) {
+    setUserFavorites(prevUserFavorites => {
+      return prevUserFavorites.filter(meetup => meetup.id !== meetupId);
     });
   }
 
-  function itemIsFavHandler(meetupId) {
-    return userFavs.some((meetup) => meetup.id === meetupId);
+  function itemIsFavoriteHandler(meetupId) {
+    return userFavorites.some(meetup => meetup.id === meetupId);
   }
 
   const context = {
-    fav: userFavs,
-    totalFav: userFavs.length,
-    addFav: addFavHandler,
-    removeFav: removeFavHandler,
-    itemIsFav: itemIsFavHandler,
+    favorites: userFavorites,
+    totalFavorites: userFavorites.length,
+    addFavorite: addFavoriteHandler,
+    removeFavorite: removeFavoriteHandler,
+    itemIsFavorite: itemIsFavoriteHandler
   };
 
   return (
-    <FavContext.Provider value={context}>{props.children}</FavContext.Provider>
+    <FavoritesContext.Provider value={context}>
+      {props.children}
+    </FavoritesContext.Provider>
   );
 }
 
-export default FavContextProvider;
+export default FavoritesContext;

@@ -1,19 +1,19 @@
-import { useContext } from "react";
+import { useContext } from 'react';
 
-import styles from "./MeetupItem.module.css";
-import Card from "../ui/Card";
-import FavContext from "../../store/fav-context";
+import Card from '../ui/Card';
+import classes from './MeetupItem.module.css';
+import FavoritesContext from '../../store/fav-context';
 
 function MeetupItem(props) {
-  const favCtx = useContext(FavContext);
-  
-  const itemIsFav = favCtx.itemIsFav(props.id);
+  const favoritesCtx = useContext(FavoritesContext);
 
-  function toggleFavStatusHandler() {
-    if (itemIsFav) {
-      favCtx.removeFav(props.id);
+  const itemIsFavorite = favoritesCtx.itemIsFavorite(props.id);
+
+  function toggleFavoriteStatusHandler() {
+    if (itemIsFavorite) {
+      favoritesCtx.removeFavorite(props.id);
     } else {
-      favCtx.addFav({
+      favoritesCtx.addFavorite({
         id: props.id,
         title: props.title,
         description: props.description,
@@ -24,19 +24,19 @@ function MeetupItem(props) {
   }
 
   return (
-    <li className={styles.item}>
+    <li className={classes.item}>
       <Card>
-        <div className={styles.image}>
-          <img src={props.image} alt={props.title}></img>
+        <div className={classes.image}>
+          <img src={props.image} alt={props.title} />
         </div>
-        <div className={styles.content}>
-          <h3> {props.title} </h3>
+        <div className={classes.content}>
+          <h3>{props.title}</h3>
           <address>{props.address}</address>
           <p>{props.description}</p>
         </div>
-        <div className={styles.actions}>
-          <button onClick={toggleFavStatusHandler}>
-            {itemIsFav ? "Remove from Favs" : "To Favs"}
+        <div className={classes.actions}>
+          <button onClick={toggleFavoriteStatusHandler}>
+            {itemIsFavorite ? 'Remove from Favorites' : 'To Favorites'}
           </button>
         </div>
       </Card>

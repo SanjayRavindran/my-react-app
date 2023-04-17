@@ -3,13 +3,13 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
-import { FavContextProvider } from "./store/fav-context";
+import { FavoritesContextProvider } from "./store/fav-context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <FavContextProvider>
+  <FavoritesContextProvider>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </FavContextProvider>
+  </FavoritesContextProvider>
 );
